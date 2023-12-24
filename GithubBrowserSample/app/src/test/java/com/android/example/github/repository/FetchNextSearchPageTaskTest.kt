@@ -25,7 +25,7 @@ import com.android.example.github.db.RepoDao
 import com.android.example.github.util.TestUtil
 import com.android.example.github.util.mock
 import com.android.example.github.vo.RepoSearchResult
-import com.android.example.github.vo.Resource
+import com.android.example.model.Resource
 import okhttp3.Headers
 import okhttp3.MediaType
 import okhttp3.ResponseBody
@@ -58,7 +58,7 @@ class FetchNextSearchPageTaskTest {
 
     private lateinit var task: FetchNextSearchPageTask
 
-    private val observer: Observer<Resource<Boolean>> = mock()
+    private val observer: Observer<com.android.example.model.Resource<Boolean>> = mock()
 
     @Before
     fun init() {
@@ -84,7 +84,7 @@ class FetchNextSearchPageTaskTest {
     fun noNextPage() {
         createDbResult(null)
         task.run()
-        verify(observer).onChanged(Resource.success(false))
+        verify(observer).onChanged(com.android.example.model.Resource.success(false))
         verifyNoMoreInteractions(observer)
         verifyNoMoreInteractions(service)
     }
@@ -98,7 +98,7 @@ class FetchNextSearchPageTaskTest {
         `when`(service.searchRepos("foo", 1)).thenReturn(call)
         task.run()
         verify(repoDao).insertRepos(repos)
-        verify(observer).onChanged(Resource.success(false))
+        verify(observer).onChanged(com.android.example.model.Resource.success(false))
     }
 
     @Test
@@ -111,7 +111,7 @@ class FetchNextSearchPageTaskTest {
         `when`(service.searchRepos("foo", 1)).thenReturn(call)
         task.run()
         verify(repoDao).insertRepos(repos)
-        verify(observer).onChanged(Resource.success(true))
+        verify(observer).onChanged(com.android.example.model.Resource.success(true))
     }
 
     @Test
@@ -127,7 +127,7 @@ class FetchNextSearchPageTaskTest {
         )
         `when`(service.searchRepos("foo", 1)).thenReturn(call)
         task.run()
-        verify(observer)!!.onChanged(Resource.error("bar", true))
+        verify(observer)!!.onChanged(com.android.example.model.Resource.error("bar", true))
     }
 
     @Test
@@ -137,7 +137,7 @@ class FetchNextSearchPageTaskTest {
         `when`(call.execute()).thenThrow(IOException("bar"))
         `when`(service.searchRepos("foo", 1)).thenReturn(call)
         task.run()
-        verify(observer)!!.onChanged(Resource.error("bar", true))
+        verify(observer)!!.onChanged(com.android.example.model.Resource.error("bar", true))
     }
 
     private fun createDbResult(nextPage: Int?) {

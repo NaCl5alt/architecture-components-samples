@@ -24,7 +24,7 @@ import android.view.ViewGroup
 import com.android.example.github.AppExecutors
 import com.android.example.github.R
 import com.android.example.github.databinding.RepoItemBinding
-import com.android.example.github.vo.Repo
+import com.android.example.model.Repo
 
 /**
  * A RecyclerView adapter for [Repo] class.
@@ -33,16 +33,16 @@ class RepoListAdapter(
     private val dataBindingComponent: DataBindingComponent,
     appExecutors: AppExecutors,
     private val showFullName: Boolean,
-    private val repoClickCallback: ((Repo) -> Unit)?
-) : DataBoundListAdapter<Repo, RepoItemBinding>(
+    private val repoClickCallback: ((com.android.example.model.Repo) -> Unit)?
+) : DataBoundListAdapter<com.android.example.model.Repo, RepoItemBinding>(
     appExecutors = appExecutors,
-    diffCallback = object : DiffUtil.ItemCallback<Repo>() {
-        override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
+    diffCallback = object : DiffUtil.ItemCallback<com.android.example.model.Repo>() {
+        override fun areItemsTheSame(oldItem: com.android.example.model.Repo, newItem: com.android.example.model.Repo): Boolean {
             return oldItem.owner == newItem.owner
                     && oldItem.name == newItem.name
         }
 
-        override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean {
+        override fun areContentsTheSame(oldItem: com.android.example.model.Repo, newItem: com.android.example.model.Repo): Boolean {
             return oldItem.description == newItem.description
                     && oldItem.stars == newItem.stars
         }
@@ -66,7 +66,7 @@ class RepoListAdapter(
         return binding
     }
 
-    override fun bind(binding: RepoItemBinding, item: Repo) {
+    override fun bind(binding: RepoItemBinding, item: com.android.example.model.Repo) {
         binding.repo = item
     }
 }

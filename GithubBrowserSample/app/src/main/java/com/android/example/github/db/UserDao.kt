@@ -21,7 +21,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.android.example.github.vo.User
+import com.android.example.model.User
 
 /**
  * Interface for database access for User related operations.
@@ -29,8 +29,8 @@ import com.android.example.github.vo.User
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(user: User)
+    fun insert(user: com.android.example.model.User)
 
     @Query("SELECT * FROM user WHERE login = :login")
-    fun findByLogin(login: String): LiveData<User>
+    fun findByLogin(login: String): LiveData<com.android.example.model.User>
 }

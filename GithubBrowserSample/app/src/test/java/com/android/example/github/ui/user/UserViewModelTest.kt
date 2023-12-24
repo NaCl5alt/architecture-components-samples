@@ -23,9 +23,9 @@ import com.android.example.github.repository.RepoRepository
 import com.android.example.github.repository.UserRepository
 import com.android.example.github.util.TestUtil
 import com.android.example.github.util.mock
-import com.android.example.github.vo.Repo
-import com.android.example.github.vo.Resource
-import com.android.example.github.vo.User
+import com.android.example.model.Repo
+import com.android.example.model.Resource
+import com.android.example.model.User
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Rule
@@ -71,22 +71,22 @@ class UserViewModelTest {
 
     @Test
     fun sendResultToUI() {
-        val foo = MutableLiveData<Resource<User>>()
-        val bar = MutableLiveData<Resource<User>>()
+        val foo = MutableLiveData<com.android.example.model.Resource<com.android.example.model.User>>()
+        val bar = MutableLiveData<com.android.example.model.Resource<com.android.example.model.User>>()
         `when`(userRepository.loadUser("foo")).thenReturn(foo)
         `when`(userRepository.loadUser("bar")).thenReturn(bar)
-        val observer = mock<Observer<Resource<User>>>()
+        val observer = mock<Observer<com.android.example.model.Resource<com.android.example.model.User>>>()
         userViewModel.user.observeForever(observer)
         userViewModel.setLogin("foo")
         verify(observer, never()).onChanged(any())
         val fooUser = TestUtil.createUser("foo")
-        val fooValue = Resource.success(fooUser)
+        val fooValue = com.android.example.model.Resource.success(fooUser)
 
         foo.value = fooValue
         verify(observer).onChanged(fooValue)
         reset(observer)
         val barUser = TestUtil.createUser("bar")
-        val barValue = Resource.success(barUser)
+        val barValue = com.android.example.model.Resource.success(barUser)
         bar.value = barValue
         userViewModel.setLogin("bar")
         verify(observer).onChanged(barValue)
@@ -110,9 +110,9 @@ class UserViewModelTest {
         verifyNoMoreInteractions(repoRepository, userRepository)
         userViewModel.retry()
         verifyNoMoreInteractions(repoRepository, userRepository)
-        val userObserver = mock<Observer<Resource<User>>>()
+        val userObserver = mock<Observer<com.android.example.model.Resource<com.android.example.model.User>>>()
         userViewModel.user.observeForever(userObserver)
-        val repoObserver = mock<Observer<Resource<List<Repo>>>>()
+        val repoObserver = mock<Observer<com.android.example.model.Resource<List<com.android.example.model.Repo>>>>()
         userViewModel.repositories.observeForever(repoObserver)
 
         verify(userRepository).loadUser("foo")
@@ -132,7 +132,7 @@ class UserViewModelTest {
 
     @Test
     fun nullUser() {
-        val observer = mock<Observer<Resource<User>>>()
+        val observer = mock<Observer<com.android.example.model.Resource<com.android.example.model.User>>>()
         userViewModel.setLogin("foo")
         userViewModel.setLogin(null)
         userViewModel.user.observeForever(observer)
@@ -141,7 +141,7 @@ class UserViewModelTest {
 
     @Test
     fun nullRepoList() {
-        val observer = mock<Observer<Resource<List<Repo>>>>()
+        val observer = mock<Observer<com.android.example.model.Resource<List<com.android.example.model.Repo>>>>()
         userViewModel.setLogin("foo")
         userViewModel.setLogin(null)
         userViewModel.repositories.observeForever(observer)

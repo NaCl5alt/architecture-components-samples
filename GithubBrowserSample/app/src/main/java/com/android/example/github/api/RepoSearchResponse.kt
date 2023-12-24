@@ -17,7 +17,7 @@
 package com.android.example.github.api
 
 
-import com.android.example.github.vo.Repo
+import com.android.example.model.Repo
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -29,7 +29,7 @@ data class RepoSearchResponse(
     @SerializedName("total_count")
     val total: Int = 0,
     @SerializedName("items")
-    val items: List<Repo>
+    val items: List<com.android.example.model.Repo>
 ) {
     var nextPage: Int? = null
 }

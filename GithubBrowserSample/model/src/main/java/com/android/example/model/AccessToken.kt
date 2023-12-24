@@ -1,3 +1,3 @@
-package com.android.example.github.vo
+package com.android.example.model
 
 data class AccessToken(val value: String)

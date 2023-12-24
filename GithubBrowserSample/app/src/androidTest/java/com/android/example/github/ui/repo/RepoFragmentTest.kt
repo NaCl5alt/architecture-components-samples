@@ -45,10 +45,9 @@ import com.android.example.github.util.RecyclerViewMatcher
 import com.android.example.github.util.TaskExecutorWithIdlingResourceRule
 import com.android.example.github.util.TestUtil
 import com.android.example.github.util.ViewModelUtil
-import com.android.example.github.util.mock
-import com.android.example.github.vo.Contributor
-import com.android.example.github.vo.Repo
-import com.android.example.github.vo.Resource
+import com.android.example.model.Contributor
+import com.android.example.model.Repo
+import com.android.example.model.Resource
 import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Rule
@@ -78,8 +77,8 @@ class RepoFragmentTest {
     val dataBindingIdlingResourceRule = DataBindingIdlingResourceRule(activityRule)
 
     private val navController = mock<NavController>()
-    private val repoLiveData = MutableLiveData<Resource<Repo>>()
-    private val contributorsLiveData = MutableLiveData<Resource<List<Contributor>>>()
+    private val repoLiveData = MutableLiveData<com.android.example.model.Resource<com.android.example.model.Repo>>()
+    private val contributorsLiveData = MutableLiveData<com.android.example.model.Resource<List<com.android.example.model.Contributor>>>()
     private lateinit var viewModel: RepoViewModel
     private lateinit var mockBindingAdapter: FragmentBindingAdapters
 
@@ -110,7 +109,7 @@ class RepoFragmentTest {
 
     @Test
     fun testLoading() {
-        repoLiveData.postValue(Resource.loading(null))
+        repoLiveData.postValue(com.android.example.model.Resource.loading(null))
         onView(withId(R.id.progress_bar)).check(matches(isDisplayed()))
         onView(withId(R.id.retry)).check(matches(not(isDisplayed())))
     }
@@ -118,7 +117,7 @@ class RepoFragmentTest {
     @Test
     fun testValueWhileLoading() {
         val repo = TestUtil.createRepo("yigit", "foo", "foo-bar")
-        repoLiveData.postValue(Resource.loading(repo))
+        repoLiveData.postValue(com.android.example.model.Resource.loading(repo))
         onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())))
         onView(withId(R.id.name)).check(
             matches(
@@ -131,7 +130,7 @@ class RepoFragmentTest {
     @Test
     fun testLoaded() {
         val repo = TestUtil.createRepo("foo", "bar", "buzz")
-        repoLiveData.postValue(Resource.success(repo))
+        repoLiveData.postValue(com.android.example.model.Resource.success(repo))
         onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())))
         onView(withId(R.id.name)).check(
             matches(
@@ -143,17 +142,17 @@ class RepoFragmentTest {
 
     @Test
     fun testError() {
-        repoLiveData.postValue(Resource.error("foo", null))
+        repoLiveData.postValue(com.android.example.model.Resource.error("foo", null))
         onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())))
         onView(withId(R.id.retry)).check(matches(isDisplayed()))
         onView(withId(R.id.retry)).perform(click())
         verify(viewModel).retry()
-        repoLiveData.postValue(Resource.loading(null))
+        repoLiveData.postValue(com.android.example.model.Resource.loading(null))
 
         onView(withId(R.id.progress_bar)).check(matches(isDisplayed()))
         onView(withId(R.id.retry)).check(matches(not(isDisplayed())))
         val repo = TestUtil.createRepo("owner", "name", "desc")
-        repoLiveData.postValue(Resource.success(repo))
+        repoLiveData.postValue(com.android.example.model.Resource.success(repo))
 
         onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())))
         onView(withId(R.id.retry)).check(matches(not(isDisplayed())))
@@ -211,7 +210,7 @@ class RepoFragmentTest {
                 contributions = 100 - index
             )
         }
-        contributorsLiveData.postValue(Resource.success(contributors))
+        contributorsLiveData.postValue(com.android.example.model.Resource.success(contributors))
     }
 
     private fun getString(@StringRes id: Int, vararg args: Any): String {

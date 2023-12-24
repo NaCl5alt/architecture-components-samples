@@ -20,13 +20,13 @@
 
     <data>
 
-        <import type="com.android.example.github.vo.Repo" />
+        <import type="com.android.example.model.Repo" />
 
         <import type="java.util.List" />
 
-        <import type="com.android.example.github.vo.Status" />
+        <import type="com.android.example.model.Status" />
 
-        <import type="com.android.example.github.vo.Resource" />
+        <import type="com.android.example.model.Resource" />
         <import type="androidx.lifecycle.LiveData"/>
         <variable
             name="query"
@@ -38,7 +38,7 @@
 
         <variable
             name="searchResult"
-            type="LiveData&lt;Resource&lt;List&lt;Repo>>>" />
+            type="com.android.example.model.Repo" />
 
         <variable
             name="callback"

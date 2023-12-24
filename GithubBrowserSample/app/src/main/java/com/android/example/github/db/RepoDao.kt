@@ -24,8 +24,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.android.example.github.testing.OpenForTesting
-import com.android.example.github.vo.Contributor
-import com.android.example.github.vo.Repo
+import com.android.example.model.Contributor
+import com.android.example.model.Repo
 import com.android.example.github.vo.RepoSearchResult
 
 /**
@@ -36,19 +36,19 @@ import com.android.example.github.vo.RepoSearchResult
 abstract class RepoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(vararg repos: Repo)
+    abstract fun insert(vararg repos: com.android.example.model.Repo)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertContributors(contributors: List<Contributor>)
+    abstract fun insertContributors(contributors: List<com.android.example.model.Contributor>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertRepos(repositories: List<Repo>)
+    abstract fun insertRepos(repositories: List<com.android.example.model.Repo>)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    abstract fun createRepoIfNotExists(repo: Repo): Long
+    abstract fun createRepoIfNotExists(repo: com.android.example.model.Repo): Long
 
     @Query("SELECT * FROM repo WHERE owner_login = :ownerLogin AND name = :name")
-    abstract fun load(ownerLogin: String, name: String): LiveData<Repo>
+    abstract fun load(ownerLogin: String, name: String): LiveData<com.android.example.model.Repo>
 
     @Query(
         """
@@ -56,7 +56,7 @@ abstract class RepoDao {
         WHERE repoName = :name AND repoOwner = :owner
         ORDER BY contributions DESC"""
     )
-    abstract fun loadContributors(owner: String, name: String): LiveData<List<Contributor>>
+    abstract fun loadContributors(owner: String, name: String): LiveData<List<com.android.example.model.Contributor>>
 
     @Query(
         """
@@ -64,7 +64,7 @@ abstract class RepoDao {
         WHERE owner_login = :owner
         ORDER BY stars DESC"""
     )
-    abstract fun loadRepositories(owner: String): LiveData<List<Repo>>
+    abstract fun loadRepositories(owner: String): LiveData<List<com.android.example.model.Repo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insert(result: RepoSearchResult)
@@ -72,7 +72,7 @@ abstract class RepoDao {
     @Query("SELECT * FROM RepoSearchResult WHERE `query` = :query")
     abstract fun search(query: String): LiveData<RepoSearchResult?>
 
-    fun loadOrdered(repoIds: List<Int>): LiveData<List<Repo>> {
+    fun loadOrdered(repoIds: List<Int>): LiveData<List<com.android.example.model.Repo>> {
         val order = SparseIntArray()
         repoIds.withIndex().forEach {
             order.put(it.value, it.index)
@@ -83,7 +83,7 @@ abstract class RepoDao {
     }
 
     @Query("SELECT * FROM Repo WHERE id in (:repoIds)")
-    protected abstract fun loadById(repoIds: List<Int>): LiveData<List<Repo>>
+    protected abstract fun loadById(repoIds: List<Int>): LiveData<List<com.android.example.model.Repo>>
 
     @Query("SELECT * FROM RepoSearchResult WHERE `query` = :query")
     abstract fun findSearchResult(query: String): RepoSearchResult?

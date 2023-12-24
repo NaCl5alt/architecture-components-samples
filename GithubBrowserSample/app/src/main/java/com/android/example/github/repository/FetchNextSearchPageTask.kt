@@ -25,7 +25,7 @@ import com.android.example.github.api.ApiSuccessResponse
 import com.android.example.github.api.GithubService
 import com.android.example.github.db.GithubDb
 import com.android.example.github.vo.RepoSearchResult
-import com.android.example.github.vo.Resource
+import com.android.example.model.Resource
 import java.io.IOException
 
 /**
@@ -36,8 +36,8 @@ class FetchNextSearchPageTask constructor(
     private val githubService: GithubService,
     private val db: GithubDb
 ) : Runnable {
-    private val _liveData = MutableLiveData<Resource<Boolean>>()
-    val liveData: LiveData<Resource<Boolean>> = _liveData
+    private val _liveData = MutableLiveData<com.android.example.model.Resource<Boolean>>()
+    val liveData: LiveData<com.android.example.model.Resource<Boolean>> = _liveData
 
     override fun run() {
         val current = db.repoDao().findSearchResult(query)
@@ -47,7 +47,7 @@ class FetchNextSearchPageTask constructor(
         }
         val nextPage = current.next
         if (nextPage == null) {
-            _liveData.postValue(Resource.success(false))
+            _liveData.postValue(com.android.example.model.Resource.success(false))
             return
         }
         val newValue = try {
@@ -68,18 +68,18 @@ class FetchNextSearchPageTask constructor(
                         db.repoDao().insert(merged)
                         db.repoDao().insertRepos(apiResponse.body.items)
                     }
-                    Resource.success(apiResponse.nextPage != null)
+                    com.android.example.model.Resource.success(apiResponse.nextPage != null)
                 }
                 is ApiEmptyResponse -> {
-                    Resource.success(false)
+                    com.android.example.model.Resource.success(false)
                 }
                 is ApiErrorResponse -> {
-                    Resource.error(apiResponse.errorMessage, true)
+                    com.android.example.model.Resource.error(apiResponse.errorMessage, true)
                 }
             }
 
         } catch (e: IOException) {
-            Resource.error(e.message!!, true)
+            com.android.example.model.Resource.error(e.message!!, true)
         }
         _liveData.postValue(newValue)
     }

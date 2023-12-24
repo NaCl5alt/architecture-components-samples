@@ -24,9 +24,9 @@ import androidx.lifecycle.switchMap
 import com.android.example.github.repository.RepoRepository
 import com.android.example.github.testing.OpenForTesting
 import com.android.example.github.util.AbsentLiveData
-import com.android.example.github.vo.Repo
-import com.android.example.github.vo.Resource
-import com.android.example.github.vo.Status
+import com.android.example.model.Repo
+import com.android.example.model.Resource
+import com.android.example.model.Status
 import java.util.Locale
 import javax.inject.Inject
 
@@ -38,7 +38,7 @@ class SearchViewModel @Inject constructor(repoRepository: RepoRepository) : View
 
     val query : LiveData<String> = _query
 
-    val results: LiveData<Resource<List<Repo>>> = _query.switchMap { search ->
+    val results: LiveData<com.android.example.model.Resource<List<com.android.example.model.Repo>>> = _query.switchMap { search ->
         if (search.isBlank()) {
             AbsentLiveData.create()
         } else {
@@ -85,8 +85,8 @@ class SearchViewModel @Inject constructor(repoRepository: RepoRepository) : View
             }
     }
 
-    class NextPageHandler(private val repository: RepoRepository) : Observer<Resource<Boolean>> {
-        private var nextPageLiveData: LiveData<Resource<Boolean>>? = null
+    class NextPageHandler(private val repository: RepoRepository) : Observer<com.android.example.model.Resource<Boolean>> {
+        private var nextPageLiveData: LiveData<com.android.example.model.Resource<Boolean>>? = null
         val loadMoreState = MutableLiveData<LoadMoreState>()
         private var query: String? = null
         private var _hasMore: Boolean = false
@@ -111,12 +111,12 @@ class SearchViewModel @Inject constructor(repoRepository: RepoRepository) : View
             nextPageLiveData?.observeForever(this)
         }
 
-        override fun onChanged(result: Resource<Boolean>?) {
+        override fun onChanged(result: com.android.example.model.Resource<Boolean>?) {
             if (result == null) {
                 reset()
             } else {
                 when (result.status) {
-                    Status.SUCCESS -> {
+                    com.android.example.model.Status.SUCCESS -> {
                         _hasMore = result.data == true
                         unregister()
                         loadMoreState.setValue(
@@ -126,7 +126,7 @@ class SearchViewModel @Inject constructor(repoRepository: RepoRepository) : View
                             )
                         )
                     }
-                    Status.ERROR -> {
+                    com.android.example.model.Status.ERROR -> {
                         _hasMore = true
                         unregister()
                         loadMoreState.setValue(
@@ -136,7 +136,7 @@ class SearchViewModel @Inject constructor(repoRepository: RepoRepository) : View
                             )
                         )
                     }
-                    Status.LOADING -> {
+                    com.android.example.model.Status.LOADING -> {
                         // ignore
                     }
                 }

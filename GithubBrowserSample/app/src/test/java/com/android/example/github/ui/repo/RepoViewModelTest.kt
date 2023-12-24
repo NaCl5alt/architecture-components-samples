@@ -20,9 +20,9 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.android.example.github.repository.RepoRepository
 import com.android.example.github.util.mock
-import com.android.example.github.vo.Contributor
-import com.android.example.github.vo.Repo
-import com.android.example.github.vo.Resource
+import com.android.example.model.Contributor
+import com.android.example.model.Repo
+import com.android.example.model.Resource
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Rule
@@ -79,7 +79,7 @@ class RepoViewModelTest {
 
     @Test
     fun contributors() {
-        val observer = mock<Observer<Resource<List<Contributor>>>>()
+        val observer = mock<Observer<com.android.example.model.Resource<List<com.android.example.model.Contributor>>>>()
         repoViewModel.contributors.observeForever(observer)
         verifyNoMoreInteractions(observer)
         verifyNoMoreInteractions(repository)
@@ -107,7 +107,7 @@ class RepoViewModelTest {
         verifyNoMoreInteractions(repository)
         repoViewModel.setId("foo", "bar")
         verifyNoMoreInteractions(repository)
-        val observer = mock<Observer<Resource<Repo>>>()
+        val observer = mock<Observer<com.android.example.model.Resource<com.android.example.model.Repo>>>()
         repoViewModel.repo.observeForever(observer)
         verify(repository).loadRepo("foo", "bar")
         reset(repository)
@@ -118,8 +118,8 @@ class RepoViewModelTest {
     @Test
     fun blankRepoId() {
         repoViewModel.setId("", "")
-        val observer1 = mock<Observer<Resource<Repo>>>()
-        val observer2 = mock<Observer<Resource<List<Contributor>>>>()
+        val observer1 = mock<Observer<com.android.example.model.Resource<com.android.example.model.Repo>>>()
+        val observer2 = mock<Observer<com.android.example.model.Resource<List<com.android.example.model.Contributor>>>>()
         repoViewModel.repo.observeForever(observer1)
         repoViewModel.contributors.observeForever(observer2)
         verify(observer1).onChanged(null)

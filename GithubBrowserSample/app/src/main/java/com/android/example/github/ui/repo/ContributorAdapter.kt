@@ -26,20 +26,20 @@ import com.android.example.github.AppExecutors
 import com.android.example.github.R
 import com.android.example.github.databinding.ContributorItemBinding
 import com.android.example.github.ui.common.DataBoundListAdapter
-import com.android.example.github.vo.Contributor
+import com.android.example.model.Contributor
 
 class ContributorAdapter(
     private val dataBindingComponent: DataBindingComponent,
     appExecutors: AppExecutors,
-    private val callback: ((Contributor, ImageView) -> Unit)?
-) : DataBoundListAdapter<Contributor, ContributorItemBinding>(
+    private val callback: ((com.android.example.model.Contributor, ImageView) -> Unit)?
+) : DataBoundListAdapter<com.android.example.model.Contributor, ContributorItemBinding>(
     appExecutors = appExecutors,
-    diffCallback = object : DiffUtil.ItemCallback<Contributor>() {
-        override fun areItemsTheSame(oldItem: Contributor, newItem: Contributor): Boolean {
+    diffCallback = object : DiffUtil.ItemCallback<com.android.example.model.Contributor>() {
+        override fun areItemsTheSame(oldItem: com.android.example.model.Contributor, newItem: com.android.example.model.Contributor): Boolean {
             return oldItem.login == newItem.login
         }
 
-        override fun areContentsTheSame(oldItem: Contributor, newItem: Contributor): Boolean {
+        override fun areContentsTheSame(oldItem: com.android.example.model.Contributor, newItem: com.android.example.model.Contributor): Boolean {
             return oldItem.avatarUrl == newItem.avatarUrl
                     && oldItem.contributions == newItem.contributions
         }
@@ -63,7 +63,7 @@ class ContributorAdapter(
         return binding
     }
 
-    override fun bind(binding: ContributorItemBinding, item: Contributor) {
+    override fun bind(binding: ContributorItemBinding, item: com.android.example.model.Contributor) {
         binding.contributor = item
     }
 }

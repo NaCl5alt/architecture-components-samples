@@ -26,7 +26,7 @@ import com.android.example.github.util.ApiUtil
 import com.android.example.github.util.CountingAppExecutors
 import com.android.example.github.util.InstantAppExecutors
 import com.android.example.github.util.mock
-import com.android.example.github.vo.Resource
+import com.android.example.model.Resource
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 import org.hamcrest.CoreMatchers.`is`
@@ -119,15 +119,15 @@ class NetworkBoundResourceTest(private val useRealExecutors: Boolean) {
         val networkResult = Foo(1)
         handleCreateCall = { ApiUtil.createCall(Response.success(networkResult)) }
 
-        val observer = mock<Observer<Resource<Foo>>>()
+        val observer = mock<Observer<com.android.example.model.Resource<Foo>>>()
         networkBoundResource.asLiveData().observeForever(observer)
         drain()
-        verify(observer).onChanged(Resource.loading(null))
+        verify(observer).onChanged(com.android.example.model.Resource.loading(null))
         reset(observer)
         dbData.value = null
         drain()
         assertThat(saved.get(), `is`(networkResult))
-        verify(observer).onChanged(Resource.success(fetchedDbValue))
+        verify(observer).onChanged(com.android.example.model.Resource.success(fetchedDbValue))
     }
 
     @Test
@@ -140,15 +140,15 @@ class NetworkBoundResourceTest(private val useRealExecutors: Boolean) {
         val body = ResponseBody.create(MediaType.parse("text/html"), "error")
         handleCreateCall = { ApiUtil.createCall(Response.error<Foo>(500, body)) }
 
-        val observer = mock<Observer<Resource<Foo>>>()
+        val observer = mock<Observer<com.android.example.model.Resource<Foo>>>()
         networkBoundResource.asLiveData().observeForever(observer)
         drain()
-        verify(observer).onChanged(Resource.loading(null))
+        verify(observer).onChanged(com.android.example.model.Resource.loading(null))
         reset(observer)
         dbData.value = null
         drain()
         assertThat(saved.get(), `is`(false))
-        verify(observer).onChanged(Resource.error("error", null))
+        verify(observer).onChanged(com.android.example.model.Resource.error("error", null))
         verifyNoMoreInteractions(observer)
     }
 
@@ -160,20 +160,20 @@ class NetworkBoundResourceTest(private val useRealExecutors: Boolean) {
             saved.set(true)
         }
 
-        val observer = mock<Observer<Resource<Foo>>>()
+        val observer = mock<Observer<com.android.example.model.Resource<Foo>>>()
         networkBoundResource.asLiveData().observeForever(observer)
         drain()
-        verify(observer).onChanged(Resource.loading(null))
+        verify(observer).onChanged(com.android.example.model.Resource.loading(null))
         reset(observer)
         val dbFoo = Foo(1)
         dbData.value = dbFoo
         drain()
-        verify(observer).onChanged(Resource.success(dbFoo))
+        verify(observer).onChanged(com.android.example.model.Resource.success(dbFoo))
         assertThat(saved.get(), `is`(false))
         val dbFoo2 = Foo(2)
         dbData.value = dbFoo2
         drain()
-        verify(observer).onChanged(Resource.success(dbFoo2))
+        verify(observer).onChanged(com.android.example.model.Resource.success(dbFoo2))
         verifyNoMoreInteractions(observer)
     }
 
@@ -189,25 +189,25 @@ class NetworkBoundResourceTest(private val useRealExecutors: Boolean) {
         val apiResponseLiveData = MutableLiveData<ApiResponse<Foo>>()
         handleCreateCall = { apiResponseLiveData }
 
-        val observer = mock<Observer<Resource<Foo>>>()
+        val observer = mock<Observer<com.android.example.model.Resource<Foo>>>()
         networkBoundResource.asLiveData().observeForever(observer)
         drain()
-        verify(observer).onChanged(Resource.loading(null))
+        verify(observer).onChanged(com.android.example.model.Resource.loading(null))
         reset(observer)
 
         dbData.value = dbValue
         drain()
-        verify(observer).onChanged(Resource.loading(dbValue))
+        verify(observer).onChanged(com.android.example.model.Resource.loading(dbValue))
 
         apiResponseLiveData.value = ApiResponse.create(Response.error<Foo>(400, body))
         drain()
         assertThat(saved.get(), `is`(false))
-        verify(observer).onChanged(Resource.error("error", dbValue))
+        verify(observer).onChanged(com.android.example.model.Resource.error("error", dbValue))
 
         val dbValue2 = Foo(2)
         dbData.value = dbValue2
         drain()
-        verify(observer).onChanged(Resource.error("error", dbValue2))
+        verify(observer).onChanged(com.android.example.model.Resource.error("error", dbValue2))
         verifyNoMoreInteractions(observer)
     }
 
@@ -224,20 +224,20 @@ class NetworkBoundResourceTest(private val useRealExecutors: Boolean) {
         val apiResponseLiveData = MutableLiveData<ApiResponse<Foo>>()
         handleCreateCall = { apiResponseLiveData }
 
-        val observer = mock<Observer<Resource<Foo>>>()
+        val observer = mock<Observer<com.android.example.model.Resource<Foo>>>()
         networkBoundResource.asLiveData().observeForever(observer)
         drain()
-        verify(observer).onChanged(Resource.loading(null))
+        verify(observer).onChanged(com.android.example.model.Resource.loading(null))
         reset(observer)
 
         dbData.value = dbValue
         drain()
         val networkResult = Foo(1)
-        verify(observer).onChanged(Resource.loading(dbValue))
+        verify(observer).onChanged(com.android.example.model.Resource.loading(dbValue))
         apiResponseLiveData.value = ApiResponse.create(Response.success(networkResult))
         drain()
         assertThat(saved.get(), `is`(networkResult))
-        verify(observer).onChanged(Resource.success(dbValue2))
+        verify(observer).onChanged(com.android.example.model.Resource.success(dbValue2))
         verifyNoMoreInteractions(observer)
     }
 

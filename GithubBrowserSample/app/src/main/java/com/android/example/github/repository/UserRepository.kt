@@ -21,8 +21,8 @@ import com.android.example.github.AppExecutors
 import com.android.example.github.api.GithubService
 import com.android.example.github.db.UserDao
 import com.android.example.github.testing.OpenForTesting
-import com.android.example.github.vo.Resource
-import com.android.example.github.vo.User
+import com.android.example.model.Resource
+import com.android.example.model.User
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -37,13 +37,13 @@ class UserRepository @Inject constructor(
     private val githubService: GithubService
 ) {
 
-    fun loadUser(login: String): LiveData<Resource<User>> {
-        return object : NetworkBoundResource<User, User>(appExecutors) {
-            override fun saveCallResult(item: User) {
+    fun loadUser(login: String): LiveData<com.android.example.model.Resource<com.android.example.model.User>> {
+        return object : NetworkBoundResource<com.android.example.model.User, com.android.example.model.User>(appExecutors) {
+            override fun saveCallResult(item: com.android.example.model.User) {
                 userDao.insert(item)
             }
 
-            override fun shouldFetch(data: User?) = data == null
+            override fun shouldFetch(data: com.android.example.model.User?) = data == null
 
             override fun loadFromDb() = userDao.findByLogin(login)
 

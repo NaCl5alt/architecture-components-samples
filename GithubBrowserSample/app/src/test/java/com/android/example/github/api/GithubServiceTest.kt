@@ -19,7 +19,7 @@ package com.android.example.github.api
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.android.example.github.util.LiveDataCallAdapterFactory
 import com.android.example.github.util.LiveDataTestUtil.getValue
-import com.android.example.github.vo.User
+import com.android.example.model.User
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okio.Okio
@@ -69,7 +69,7 @@ class GithubServiceTest {
         val request = mockWebServer.takeRequest()
         assertThat(request.path, `is`("/users/yigit"))
 
-        assertThat<User>(yigit, notNullValue())
+        assertThat<com.android.example.model.User>(yigit, notNullValue())
         assertThat(yigit.avatarUrl, `is`("https://avatars3.githubusercontent.com/u/89202?v=3"))
         assertThat(yigit.company, `is`("Google"))
         assertThat(yigit.blog, `is`("birbit.com"))

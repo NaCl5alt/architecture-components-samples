@@ -41,10 +41,9 @@ import com.android.example.github.util.RecyclerViewMatcher
 import com.android.example.github.util.TaskExecutorWithIdlingResourceRule
 import com.android.example.github.util.TestUtil
 import com.android.example.github.util.ViewModelUtil
-import com.android.example.github.util.mock
-import com.android.example.github.vo.Repo
-import com.android.example.github.vo.Resource
-import com.android.example.github.vo.User
+import com.android.example.model.Repo
+import com.android.example.model.Resource
+import com.android.example.model.User
 import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Rule
@@ -73,8 +72,8 @@ class UserFragmentTest {
     private lateinit var viewModel: UserViewModel
     private lateinit var mockBindingAdapter: FragmentBindingAdapters
     private val navController = mock<NavController>()
-    private val userData = MutableLiveData<Resource<User>>()
-    private val repoListData = MutableLiveData<Resource<List<Repo>>>()
+    private val userData = MutableLiveData<com.android.example.model.Resource<com.android.example.model.User>>()
+    private val repoListData = MutableLiveData<com.android.example.model.Resource<List<com.android.example.model.Repo>>>()
     private val testFragment = UserFragment().apply {
         arguments = UserFragmentArgs("foo").toBundle()
     }
@@ -106,7 +105,7 @@ class UserFragmentTest {
 
     @Test
     fun loading() {
-        userData.postValue(Resource.loading(null))
+        userData.postValue(com.android.example.model.Resource.loading(null))
         onView(withId(R.id.progress_bar)).check(matches(isDisplayed()))
         onView(withId(R.id.retry)).check(matches(not(isDisplayed())))
     }
@@ -114,7 +113,7 @@ class UserFragmentTest {
     @Test
     fun error() {
         doNothing().`when`(viewModel).retry()
-        userData.postValue(Resource.error("wtf", null))
+        userData.postValue(com.android.example.model.Resource.error("wtf", null))
         onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())))
         onView(withId(R.id.error_msg)).check(matches(withText("wtf")))
         onView(withId(R.id.retry)).check(matches(isDisplayed()))
@@ -125,7 +124,7 @@ class UserFragmentTest {
     @Test
     fun loadingWithUser() {
         val user = TestUtil.createUser("foo")
-        userData.postValue(Resource.loading(user))
+        userData.postValue(com.android.example.model.Resource.loading(user))
         onView(withId(R.id.name)).check(matches(withText(user.name)))
         onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())))
     }
@@ -133,7 +132,7 @@ class UserFragmentTest {
     @Test
     fun loadedUser() {
         val user = TestUtil.createUser("foo")
-        userData.postValue(Resource.success(user))
+        userData.postValue(com.android.example.model.Resource.success(user))
         onView(withId(R.id.name)).check(matches(withText(user.name)))
         onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())))
     }
@@ -180,7 +179,7 @@ class UserFragmentTest {
     @Test
     fun nulledUser() {
         val user = TestUtil.createUser("foo")
-        userData.postValue(Resource.success(user))
+        userData.postValue(com.android.example.model.Resource.success(user))
         onView(withId(R.id.name)).check(matches(withText(user.name)))
         userData.postValue(null)
         onView(withId(R.id.name)).check(matches(not(isDisplayed())))
@@ -196,11 +195,11 @@ class UserFragmentTest {
 
     private fun listMatcher() = RecyclerViewMatcher(R.id.repo_list)
 
-    private fun setRepos(count: Int): List<Repo> {
+    private fun setRepos(count: Int): List<com.android.example.model.Repo> {
         val repos = (0 until count).map {
             TestUtil.createRepo("foo", "name $it", "desc$it")
         }
-        repoListData.postValue(Resource.success(repos))
+        repoListData.postValue(com.android.example.model.Resource.success(repos))
         return repos
     }
 }

@@ -6,7 +6,7 @@ import com.android.example.github.BuildConfig
 import com.android.example.github.api.AccessTokenParameter
 import com.android.example.github.api.GithubAuthService
 import com.android.example.github.repository.AccessTokenRepository
-import com.android.example.github.vo.AccessToken
+import com.android.example.model.AccessToken
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -39,7 +39,7 @@ class LoginHelper @Inject constructor(
 
         return runCatching {
             val resp = githubAuthService.createAccessToken(param)
-            accessTokenRepository.save(AccessToken(resp.accessToken))
+            accessTokenRepository.save(com.android.example.model.AccessToken(resp.accessToken))
         }.onFailure {
             Timber.e(it, "createAccessToken failed!")
         }.isSuccess

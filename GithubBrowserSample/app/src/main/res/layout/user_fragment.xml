@@ -19,12 +19,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.android.example.github.vo.Status" />
+        <import type="com.android.example.model.Status" />
 
-        <import type="com.android.example.github.vo.Resource" />
+        <import type="com.android.example.model.Resource" />
 
         <import type="androidx.lifecycle.LiveData"/>
-        <import type="com.android.example.github.vo.User"/>
+        <import type="com.android.example.model.User"/>
         <import type="com.bumptech.glide.request.RequestListener"/>
         <import type="android.graphics.drawable.Drawable"/>
         <variable
@@ -33,11 +33,11 @@
 
         <variable
             name="userResource"
-            type="com.android.example.github.vo.Resource" />
+            type="com.android.example.model.Resource" />
 
         <variable
             name="user"
-            type="LiveData&lt;Resource&lt;User>>" />
+            type="com.android.example.model.User" />
 
         <variable
             name="retryCallback"
