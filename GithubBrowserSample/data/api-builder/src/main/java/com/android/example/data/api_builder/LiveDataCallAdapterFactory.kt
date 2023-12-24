@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.example.github.util
+package com.android.example.data.api_builder
 
 import androidx.lifecycle.LiveData
 import com.android.example.data.api.ApiResponse
