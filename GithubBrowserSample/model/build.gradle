@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    namespace 'com.android.example.data.api'
+    namespace 'com.android.example.model'
     compileSdkVersion build_versions.target_sdk
     buildToolsVersion build_versions.build_tools
 
@@ -25,22 +25,18 @@ android {
         }
     }
 
-    dependencies {
-        implementation project(":model")
+}
 
-        implementation deps.lifecycle.livedata_ktx
-        implementation deps.kotlin.stdlib
-        api deps.retrofit.runtime
-        implementation deps.retrofit.gson
-        implementation deps.timber
+dependencies {
+    implementation deps.kotlin.stdlib
 
-        implementation deps.dagger.runtime
-        kapt deps.dagger.compiler
+    implementation deps.retrofit.gson
+    implementation deps.room.runtime
 
-        androidTestImplementation deps.atsl.core
-        androidTestImplementation deps.atsl.ext_junit
-        androidTestImplementation deps.espresso.core
+    kapt deps.room.compiler
 
-        testImplementation deps.junit
-    }
+    androidTestImplementation deps.atsl.ext_junit
+    androidTestImplementation deps.espresso.core
+
+    testImplementation deps.junit
 }
