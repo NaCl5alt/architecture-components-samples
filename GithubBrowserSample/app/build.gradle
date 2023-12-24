@@ -74,6 +74,8 @@ jacoco {
 }
 
 dependencies {
+    implementation project(":data:api")
+
     implementation deps.app_compat
     implementation deps.recyclerview
     implementation deps.cardview
