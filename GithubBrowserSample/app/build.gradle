@@ -77,6 +77,7 @@ dependencies {
     implementation project(":model")
     implementation project(":data:api")
     implementation project(":data:repository")
+    implementation project(":data:api-builder")
 
     implementation deps.app_compat
     implementation deps.recyclerview
