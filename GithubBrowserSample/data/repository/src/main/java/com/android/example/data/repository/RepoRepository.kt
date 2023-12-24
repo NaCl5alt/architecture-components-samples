@@ -14,19 +14,16 @@
  * limitations under the License.
  */
 
-package com.android.example.github.repository
+package com.android.example.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.switchMap
-import com.android.example.executor.AppExecutors
 import com.android.example.data.api.ApiSuccessResponse
 import com.android.example.data.api.GithubService
 import com.android.example.data.api.RepoSearchResponse
 import com.android.example.data.db.GithubDb
 import com.android.example.data.db.RepoDao
 import com.android.example.testing.OpenForTesting
-import com.android.example.github.util.AbsentLiveData
-import com.android.example.github.util.RateLimiter
 import com.android.example.model.Contributor
 import com.android.example.model.Repo
 import com.android.example.data.db.RepoSearchResult

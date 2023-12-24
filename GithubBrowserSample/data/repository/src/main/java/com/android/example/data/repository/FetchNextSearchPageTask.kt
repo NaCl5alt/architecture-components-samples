@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.example.github.repository
+package com.android.example.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

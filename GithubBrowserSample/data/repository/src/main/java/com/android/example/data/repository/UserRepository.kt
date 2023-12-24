@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.example.github.repository
+package com.android.example.data.repository
 
 import androidx.lifecycle.LiveData
-import com.android.example.executor.AppExecutors
 import com.android.example.data.api.GithubService
 import com.android.example.data.db.UserDao
 import com.android.example.testing.OpenForTesting

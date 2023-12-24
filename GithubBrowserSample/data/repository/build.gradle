@@ -38,6 +38,7 @@ dependencies {
     releaseImplementation project(":testing-release")
     debugImplementation project(":testing-debug")
     implementation project(":data:api")
+    implementation project(":data:db")
     implementation project(":executor")
 
     implementation deps.core_ktx
@@ -50,6 +51,7 @@ dependencies {
     implementation deps.kotpref.core
     implementation deps.kotpref.initializer
 
+    androidTestImplementation deps.atsl.core
     androidTestImplementation deps.atsl.ext_junit
     androidTestImplementation deps.espresso.core
 

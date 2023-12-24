@@ -25,6 +25,7 @@ import com.android.example.data.db.RepoDao
 import com.android.example.github.util.TestUtil
 import com.android.example.github.util.mock
 import com.android.example.data.db.RepoSearchResult
+import com.android.example.data.repository.FetchNextSearchPageTask
 import okhttp3.Headers
 import okhttp3.MediaType
 import okhttp3.ResponseBody

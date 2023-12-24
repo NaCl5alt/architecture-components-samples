@@ -19,13 +19,10 @@ package com.android.example.github.ui.user
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.android.example.github.repository.RepoRepository
-import com.android.example.github.repository.UserRepository
+import com.android.example.data.repository.RepoRepository
+import com.android.example.data.repository.UserRepository
 import com.android.example.github.util.TestUtil
 import com.android.example.github.util.mock
-import com.android.example.model.Repo
-import com.android.example.model.Resource
-import com.android.example.model.User
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Rule

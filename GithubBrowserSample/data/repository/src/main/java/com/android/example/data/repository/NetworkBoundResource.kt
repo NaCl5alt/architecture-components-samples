@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package com.android.example.github.repository
+package com.android.example.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
-import com.android.example.executor.AppExecutors
 import com.android.example.data.api.ApiEmptyResponse
 import com.android.example.data.api.ApiErrorResponse
 import com.android.example.data.api.ApiResponse

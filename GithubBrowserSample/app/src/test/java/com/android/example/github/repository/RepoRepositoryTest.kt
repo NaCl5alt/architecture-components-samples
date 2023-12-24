@@ -24,13 +24,14 @@ import com.android.example.data.api.GithubService
 import com.android.example.data.api.RepoSearchResponse
 import com.android.example.data.db.GithubDb
 import com.android.example.data.db.RepoDao
-import com.android.example.github.util.AbsentLiveData
+import com.android.example.data.repository.AbsentLiveData
 import com.android.example.github.util.ApiUtil.successCall
 import com.android.example.github.util.InstantAppExecutors
 import com.android.example.github.util.TestUtil
 import com.android.example.github.util.argumentCaptor
 import com.android.example.github.util.mock
 import com.android.example.data.db.RepoSearchResult
+import com.android.example.data.repository.RepoRepository
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
