@@ -78,6 +78,8 @@ dependencies {
     implementation project(":data:api")
     implementation project(":data:repository")
     implementation project(":data:api-builder")
+    releaseImplementation project(":testing-release")
+    debugImplementation project(":testing-debug")
 
     implementation deps.app_compat
     implementation deps.recyclerview

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.example.github.testing
+package com.android.example.testing
 
 /**
  * This annotation allows us to open some classes for mocking purposes while they are final in
