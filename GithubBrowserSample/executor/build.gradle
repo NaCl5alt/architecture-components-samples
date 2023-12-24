@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    namespace 'com.android.example.data.repository'
+    namespace 'com.android.example.executor'
     compileSdkVersion build_versions.target_sdk
     buildToolsVersion build_versions.build_tools
 
@@ -17,13 +17,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -34,22 +28,12 @@ android {
 }
 
 dependencies {
-    api project(":model")
-    releaseImplementation project(":testing-release")
-    debugImplementation project(":testing-debug")
-    implementation project(":data:api")
-    implementation project(":executor")
-
-    implementation deps.core_ktx
-    implementation deps.lifecycle.livedata_ktx
     implementation deps.kotlin.stdlib
 
     implementation deps.dagger.runtime
     kapt deps.dagger.compiler
 
-    implementation deps.kotpref.core
-    implementation deps.kotpref.initializer
-
+    androidTestImplementation deps.atsl.core
     androidTestImplementation deps.atsl.ext_junit
     androidTestImplementation deps.espresso.core
 

@@ -31,7 +31,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
-import com.android.example.github.AppExecutors
+import com.android.example.executor.AppExecutors
 import com.android.example.github.R
 import com.android.example.github.binding.FragmentDataBindingComponent
 import com.android.example.github.databinding.RepoFragmentBinding
@@ -53,7 +53,7 @@ class RepoFragment : Fragment(), Injectable {
     }
 
     @Inject
-    lateinit var appExecutors: AppExecutors
+    lateinit var appExecutors: com.android.example.executor.AppExecutors
 
     // mutable for testing
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)

@@ -16,7 +16,7 @@
 
 package com.android.example.github.util
 
-import com.android.example.github.AppExecutors
+import com.android.example.executor.AppExecutors
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -28,7 +28,7 @@ class CountingAppExecutors(idleCallback: (() -> Unit)? = null) {
 
     private var taskCount = 0
 
-    val appExecutors: AppExecutors
+    val appExecutors: com.android.example.executor.AppExecutors
 
     init {
         val increment: () -> Unit = {
@@ -49,7 +49,7 @@ class CountingAppExecutors(idleCallback: (() -> Unit)? = null) {
                 }
             }
         }
-        appExecutors = AppExecutors(
+        appExecutors = com.android.example.executor.AppExecutors(
             CountingExecutor(increment, decrement),
             CountingExecutor(increment, decrement),
             CountingExecutor(increment, decrement)

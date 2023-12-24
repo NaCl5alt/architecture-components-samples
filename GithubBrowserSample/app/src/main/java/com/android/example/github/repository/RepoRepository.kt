@@ -18,7 +18,7 @@ package com.android.example.github.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.switchMap
-import com.android.example.github.AppExecutors
+import com.android.example.executor.AppExecutors
 import com.android.example.data.api.ApiSuccessResponse
 import com.android.example.data.api.GithubService
 import com.android.example.data.api.RepoSearchResponse
@@ -45,7 +45,7 @@ import javax.inject.Singleton
 @Singleton
 @OpenForTesting
 class RepoRepository @Inject constructor(
-    private val appExecutors: AppExecutors,
+    private val appExecutors: com.android.example.executor.AppExecutors,
     private val db: com.android.example.data.db.GithubDb,
     private val repoDao: com.android.example.data.db.RepoDao,
     private val githubService: GithubService
