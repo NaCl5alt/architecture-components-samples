@@ -37,13 +37,13 @@ class UserRepository @Inject constructor(
     private val githubService: GithubService
 ) {
 
-    fun loadUser(login: String): LiveData<com.android.example.model.Resource<com.android.example.model.User>> {
-        return object : NetworkBoundResource<com.android.example.model.User, com.android.example.model.User>(appExecutors) {
-            override fun saveCallResult(item: com.android.example.model.User) {
+    fun loadUser(login: String): LiveData<Resource<User>> {
+        return object : NetworkBoundResource<User, User>(appExecutors) {
+            override fun saveCallResult(item: User) {
                 userDao.insert(item)
             }
 
-            override fun shouldFetch(data: com.android.example.model.User?) = data == null
+            override fun shouldFetch(data: User?) = data == null
 
             override fun loadFromDb() = userDao.findByLogin(login)
 

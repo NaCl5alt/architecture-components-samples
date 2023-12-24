@@ -25,7 +25,6 @@ import com.android.example.data.api.ApiSuccessResponse
 import com.android.example.data.api.GithubService
 import com.android.example.github.db.GithubDb
 import com.android.example.github.vo.RepoSearchResult
-import com.android.example.model.Resource
 import java.io.IOException
 
 /**

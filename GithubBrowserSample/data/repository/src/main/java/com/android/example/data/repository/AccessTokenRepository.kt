@@ -1,4 +1,4 @@
-package com.android.example.github.repository
+package com.android.example.data.repository
 
 import com.android.example.model.AccessToken
 import com.chibatching.kotpref.KotprefModel
@@ -12,13 +12,13 @@ class AccessTokenRepository @Inject constructor() {
         var accessTokenValue by nullableStringPref()
     }
 
-    fun save(token: com.android.example.model.AccessToken) {
+    fun save(token: AccessToken) {
         Pref.accessTokenValue = token.value
     }
 
-    fun load(): com.android.example.model.AccessToken? {
+    fun load(): AccessToken? {
         return Pref.accessTokenValue?.let {
-            com.android.example.model.AccessToken(it)
+            AccessToken(it)
         }
     }
 

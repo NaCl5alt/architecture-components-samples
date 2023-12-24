@@ -76,6 +76,7 @@ jacoco {
 dependencies {
     implementation project(":model")
     implementation project(":data:api")
+    implementation project(":data:repository")
 
     implementation deps.app_compat
     implementation deps.recyclerview

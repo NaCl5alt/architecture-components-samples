@@ -1,6 +1,6 @@
 package com.android.example.github.api
 
-import com.android.example.github.repository.AccessTokenRepository
+import com.android.example.data.repository.AccessTokenRepository
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject

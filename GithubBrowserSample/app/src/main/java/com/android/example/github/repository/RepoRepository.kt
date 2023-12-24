@@ -53,13 +53,13 @@ class RepoRepository @Inject constructor(
 
     private val repoListRateLimit = RateLimiter<String>(10, TimeUnit.MINUTES)
 
-    fun loadRepos(owner: String): LiveData<com.android.example.model.Resource<List<com.android.example.model.Repo>>> {
-        return object : NetworkBoundResource<List<com.android.example.model.Repo>, List<com.android.example.model.Repo>>(appExecutors) {
-            override fun saveCallResult(item: List<com.android.example.model.Repo>) {
+    fun loadRepos(owner: String): LiveData<Resource<List<Repo>>> {
+        return object : NetworkBoundResource<List<Repo>, List<Repo>>(appExecutors) {
+            override fun saveCallResult(item: List<Repo>) {
                 repoDao.insertRepos(item)
             }
 
-            override fun shouldFetch(data: List<com.android.example.model.Repo>?): Boolean {
+            override fun shouldFetch(data: List<Repo>?): Boolean {
                 return data == null || data.isEmpty() || repoListRateLimit.shouldFetch(owner)
             }
 
@@ -73,13 +73,13 @@ class RepoRepository @Inject constructor(
         }.asLiveData()
     }
 
-    fun loadRepo(owner: String, name: String): LiveData<com.android.example.model.Resource<com.android.example.model.Repo>> {
-        return object : NetworkBoundResource<com.android.example.model.Repo, com.android.example.model.Repo>(appExecutors) {
-            override fun saveCallResult(item: com.android.example.model.Repo) {
+    fun loadRepo(owner: String, name: String): LiveData<com.android.example.model.Resource<Repo>> {
+        return object : NetworkBoundResource<Repo, Repo>(appExecutors) {
+            override fun saveCallResult(item: Repo) {
                 repoDao.insert(item)
             }
 
-            override fun shouldFetch(data: com.android.example.model.Repo?) = data == null
+            override fun shouldFetch(data: Repo?) = data == null
 
             override fun loadFromDb() = repoDao.load(
                 ownerLogin = owner,
@@ -93,21 +93,21 @@ class RepoRepository @Inject constructor(
         }.asLiveData()
     }
 
-    fun loadContributors(owner: String, name: String): LiveData<com.android.example.model.Resource<List<com.android.example.model.Contributor>>> {
-        return object : NetworkBoundResource<List<com.android.example.model.Contributor>, List<com.android.example.model.Contributor>>(appExecutors) {
-            override fun saveCallResult(item: List<com.android.example.model.Contributor>) {
+    fun loadContributors(owner: String, name: String): LiveData<Resource<List<Contributor>>> {
+        return object : NetworkBoundResource<List<Contributor>, List<Contributor>>(appExecutors) {
+            override fun saveCallResult(item: List<Contributor>) {
                 item.forEach {
                     it.repoName = name
                     it.repoOwner = owner
                 }
                 db.runInTransaction {
                     repoDao.createRepoIfNotExists(
-                        com.android.example.model.Repo(
-                            id = com.android.example.model.Repo.UNKNOWN_ID,
+                        Repo(
+                            id = Repo.UNKNOWN_ID,
                             name = name,
                             fullName = "$owner/$name",
                             description = "",
-                            owner = com.android.example.model.Repo.Owner(owner, null),
+                            owner = Repo.Owner(owner, null),
                             stars = 0
                         )
                     )
@@ -115,7 +115,7 @@ class RepoRepository @Inject constructor(
                 }
             }
 
-            override fun shouldFetch(data: List<com.android.example.model.Contributor>?): Boolean {
+            override fun shouldFetch(data: List<Contributor>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
@@ -125,7 +125,7 @@ class RepoRepository @Inject constructor(
         }.asLiveData()
     }
 
-    fun searchNextPage(query: String): LiveData<com.android.example.model.Resource<Boolean>> {
+    fun searchNextPage(query: String): LiveData<Resource<Boolean>> {
         val fetchNextSearchPageTask = FetchNextSearchPageTask(
             query = query,
             githubService = githubService,
@@ -135,8 +135,8 @@ class RepoRepository @Inject constructor(
         return fetchNextSearchPageTask.liveData
     }
 
-    fun search(query: String): LiveData<com.android.example.model.Resource<List<com.android.example.model.Repo>>> {
-        return object : NetworkBoundResource<List<com.android.example.model.Repo>, RepoSearchResponse>(appExecutors) {
+    fun search(query: String): LiveData<Resource<List<Repo>>> {
+        return object : NetworkBoundResource<List<Repo>, RepoSearchResponse>(appExecutors) {
 
             override fun saveCallResult(item: RepoSearchResponse) {
                 val repoIds = item.items.map { it.id }
@@ -152,9 +152,9 @@ class RepoRepository @Inject constructor(
                 }
             }
 
-            override fun shouldFetch(data: List<com.android.example.model.Repo>?) = data == null
+            override fun shouldFetch(data: List<Repo>?) = data == null
 
-            override fun loadFromDb(): LiveData<List<com.android.example.model.Repo>> {
+            override fun loadFromDb(): LiveData<List<Repo>> {
                 return repoDao.search(query).switchMap { searchData ->
                     if (searchData == null) {
                         AbsentLiveData.create()
