@@ -58,11 +58,11 @@ object TestUtil {
     )
 
     fun createContributor(repo: Repo, login: String, contributions: Int) = Contributor(
+        repoName = repo.name,
+        repoOwner = repo.owner.login,
         login = login,
         contributions = contributions,
         avatarUrl = null
     ).apply {
-        repoName = repo.name
-        repoOwner = repo.owner.login
     }
 }

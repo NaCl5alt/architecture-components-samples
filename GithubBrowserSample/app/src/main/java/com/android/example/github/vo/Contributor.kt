@@ -31,16 +31,14 @@ import com.google.gson.annotations.SerializedName
     )]
 )
 data class Contributor(
+    @field:SerializedName("repoName")
+    var repoName: String,
+    @field:SerializedName("repoOwner")
+    var repoOwner: String,
     @field:SerializedName("login")
     val login: String,
     @field:SerializedName("contributions")
     val contributions: Int,
     @field:SerializedName("avatar_url")
     val avatarUrl: String?
-) {
-
-    // does not show up in the response but set in post processing.
-    lateinit var repoName: String
-    // does not show up in the response but set in post processing.
-    lateinit var repoOwner: String
-}
+)

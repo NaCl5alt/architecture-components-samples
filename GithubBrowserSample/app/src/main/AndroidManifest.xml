@@ -30,7 +30,9 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".ui.login.LoginActivity"
-            android:launchMode="singleTask">
+            android:exported="true"
+            android:launchMode="singleTask"
+            tools:ignore="AppLinkUrlError">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -43,7 +45,9 @@
                     android:scheme="dgbs" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
