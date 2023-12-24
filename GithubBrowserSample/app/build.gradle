@@ -74,6 +74,7 @@ jacoco {
 }
 
 dependencies {
+    implementation project(":model")
     implementation project(":data:api")
 
     implementation deps.app_compat

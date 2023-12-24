@@ -16,13 +16,11 @@
 
 package com.android.example.github.util
 
-import com.android.example.model.Contributor
-import com.android.example.model.Repo
 import com.android.example.model.User
 
 object TestUtil {
 
-    fun createUser(login: String) = com.android.example.model.User(
+    fun createUser(login: String) = User(
         login = login,
         avatarUrl = null,
         name = "$login name",

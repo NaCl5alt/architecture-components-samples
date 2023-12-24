@@ -19,7 +19,7 @@ package com.android.example.github.repository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.android.example.github.api.GithubService
+import com.android.example.data.api.GithubService
 import com.android.example.github.db.UserDao
 import com.android.example.github.util.ApiUtil
 import com.android.example.github.util.InstantAppExecutors

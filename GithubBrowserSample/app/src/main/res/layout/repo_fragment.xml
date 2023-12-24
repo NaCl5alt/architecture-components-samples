@@ -30,7 +30,7 @@
 
         <variable
             name="repo"
-            type="com.android.example.model.Repo" />
+            type="LiveData&lt;Resource&lt;com.android.example.model.Repo>>" />
 
         <variable
             name="contributorsStatus"

@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.android.example.github.api
+package com.android.example.data.api
 
+import com.android.example.data.api.AccessTokenParameter
+import com.android.example.data.api.AccessTokenResponse
 import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST

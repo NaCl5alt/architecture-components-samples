@@ -16,6 +16,9 @@
 
 package com.android.example.github.api
 
+import com.android.example.data.api.ApiErrorResponse
+import com.android.example.data.api.ApiResponse
+import com.android.example.data.api.ApiSuccessResponse
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 import org.hamcrest.CoreMatchers.`is`

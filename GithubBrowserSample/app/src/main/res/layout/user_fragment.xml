@@ -37,7 +37,7 @@
 
         <variable
             name="user"
-            type="com.android.example.model.User" />
+            type="LiveData&lt;Resource&lt;com.android.example.model.User>>" />
 
         <variable
             name="retryCallback"

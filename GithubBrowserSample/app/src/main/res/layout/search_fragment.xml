@@ -38,7 +38,7 @@
 
         <variable
             name="searchResult"
-            type="com.android.example.model.Repo" />
+            type="LiveData&lt;Resource&lt;List&lt;com.android.example.model.Repo>>>" />
 
         <variable
             name="callback"
