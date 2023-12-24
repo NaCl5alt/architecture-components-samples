@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.example.github.db
+package com.android.example.data.db
 
 import android.util.SparseIntArray
 import androidx.lifecycle.LiveData
@@ -24,7 +24,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.android.example.testing.OpenForTesting
-import com.android.example.github.vo.RepoSearchResult
 
 /**
  * Interface for database access on Repo related operations.
@@ -65,10 +64,10 @@ abstract class RepoDao {
     abstract fun loadRepositories(owner: String): LiveData<List<com.android.example.model.Repo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(result: RepoSearchResult)
+    abstract fun insert(result: com.android.example.data.db.RepoSearchResult)
 
     @Query("SELECT * FROM RepoSearchResult WHERE `query` = :query")
-    abstract fun search(query: String): LiveData<RepoSearchResult?>
+    abstract fun search(query: String): LiveData<com.android.example.data.db.RepoSearchResult?>
 
     fun loadOrdered(repoIds: List<Int>): LiveData<List<com.android.example.model.Repo>> {
         val order = SparseIntArray()
@@ -84,5 +83,5 @@ abstract class RepoDao {
     protected abstract fun loadById(repoIds: List<Int>): LiveData<List<com.android.example.model.Repo>>
 
     @Query("SELECT * FROM RepoSearchResult WHERE `query` = :query")
-    abstract fun findSearchResult(query: String): RepoSearchResult?
+    abstract fun findSearchResult(query: String): com.android.example.data.db.RepoSearchResult?
 }

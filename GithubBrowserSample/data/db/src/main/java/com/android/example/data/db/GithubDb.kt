@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-package com.android.example.github.db
+package com.android.example.data.db
 
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.android.example.model.Contributor
-import com.android.example.model.Repo
-import com.android.example.github.vo.RepoSearchResult
-import com.android.example.model.User
 
 /**
  * Main database description.
@@ -32,7 +28,7 @@ import com.android.example.model.User
         com.android.example.model.User::class,
         com.android.example.model.Repo::class,
         com.android.example.model.Contributor::class,
-        RepoSearchResult::class],
+        com.android.example.data.db.RepoSearchResult::class],
     version = 3,
     exportSchema = false
 )

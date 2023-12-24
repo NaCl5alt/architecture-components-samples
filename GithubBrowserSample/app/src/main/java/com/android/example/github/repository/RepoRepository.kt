@@ -22,14 +22,14 @@ import com.android.example.github.AppExecutors
 import com.android.example.data.api.ApiSuccessResponse
 import com.android.example.data.api.GithubService
 import com.android.example.data.api.RepoSearchResponse
-import com.android.example.github.db.GithubDb
-import com.android.example.github.db.RepoDao
+import com.android.example.data.db.GithubDb
+import com.android.example.data.db.RepoDao
 import com.android.example.testing.OpenForTesting
 import com.android.example.github.util.AbsentLiveData
 import com.android.example.github.util.RateLimiter
 import com.android.example.model.Contributor
 import com.android.example.model.Repo
-import com.android.example.github.vo.RepoSearchResult
+import com.android.example.data.db.RepoSearchResult
 import com.android.example.model.Resource
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -46,8 +46,8 @@ import javax.inject.Singleton
 @OpenForTesting
 class RepoRepository @Inject constructor(
     private val appExecutors: AppExecutors,
-    private val db: GithubDb,
-    private val repoDao: RepoDao,
+    private val db: com.android.example.data.db.GithubDb,
+    private val repoDao: com.android.example.data.db.RepoDao,
     private val githubService: GithubService
 ) {
 
@@ -140,7 +140,7 @@ class RepoRepository @Inject constructor(
 
             override fun saveCallResult(item: RepoSearchResponse) {
                 val repoIds = item.items.map { it.id }
-                val repoSearchResult = RepoSearchResult(
+                val repoSearchResult = com.android.example.data.db.RepoSearchResult(
                     query = query,
                     repoIds = repoIds,
                     totalCount = item.total,

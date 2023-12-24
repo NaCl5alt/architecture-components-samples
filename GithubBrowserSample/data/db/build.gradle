@@ -45,6 +45,7 @@ dependencies {
 
     kapt deps.room.compiler
 
+    androidTestImplementation deps.atsl.core
     androidTestImplementation deps.atsl.ext_junit
     androidTestImplementation deps.espresso.core
 

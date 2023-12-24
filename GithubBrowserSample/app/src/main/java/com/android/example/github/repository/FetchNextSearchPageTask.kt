@@ -23,8 +23,8 @@ import com.android.example.data.api.ApiErrorResponse
 import com.android.example.data.api.ApiResponse
 import com.android.example.data.api.ApiSuccessResponse
 import com.android.example.data.api.GithubService
-import com.android.example.github.db.GithubDb
-import com.android.example.github.vo.RepoSearchResult
+import com.android.example.data.db.GithubDb
+import com.android.example.data.db.RepoSearchResult
 import java.io.IOException
 
 /**
@@ -33,7 +33,7 @@ import java.io.IOException
 class FetchNextSearchPageTask constructor(
     private val query: String,
     private val githubService: GithubService,
-    private val db: GithubDb
+    private val db: com.android.example.data.db.GithubDb
 ) : Runnable {
     private val _liveData = MutableLiveData<com.android.example.model.Resource<Boolean>>()
     val liveData: LiveData<com.android.example.model.Resource<Boolean>> = _liveData
@@ -59,7 +59,7 @@ class FetchNextSearchPageTask constructor(
                     ids.addAll(current.repoIds)
 
                     ids.addAll(apiResponse.body.items.map { it.id })
-                    val merged = RepoSearchResult(
+                    val merged = com.android.example.data.db.RepoSearchResult(
                         query, ids,
                         apiResponse.body.total, apiResponse.nextPage
                     )
